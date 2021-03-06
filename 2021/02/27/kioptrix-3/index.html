@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Kioptrix Level 3 WriteupNumber three in the Kioptrix series. You can find the VM here Kioptrix Level 3 Discoverynetdiscover1netdiscover -i eth1   Running netdiscover on the eth1 network interface we s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kioptrix Level 3">
+<meta property="og:url" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/index.html">
+<meta property="og:site_name" content="lukersec">
+<meta property="og:description" content="Kioptrix Level 3 WriteupNumber three in the Kioptrix series. You can find the VM here Kioptrix Level 3 Discoverynetdiscover1netdiscover -i eth1   Running netdiscover on the eth1 network interface we s">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/netdiscover.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/nmap.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/website-home.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/dirb.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/gallery.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/page-source.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/etc-hosts.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/virtual-host.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sqli-param.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sqli-test.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sqlmap.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/ssh.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/policy.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/export-term.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sudo-ht.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/search-sudoers.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sudoers.png">
+<meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/root.png">
+<meta property="article:published_time" content="2021-02-27T17:20:06.000Z">
+<meta property="article:modified_time" content="2021-03-06T23:54:02.665Z">
+<meta property="article:author" content="Hunter Luker">
+<meta property="article:tag" content="kioptrix">
+<meta property="article:tag" content="oscp">
+<meta property="article:tag" content="ejpt">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="writeup">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/netdiscover.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Kioptrix Level 3</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/hunterluker">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/02/02/kioptrix-2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://hunterluker.github.io/2021/02/27/kioptrix-3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&text=Kioptrix Level 3"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&is_video=false&description=Kioptrix Level 3"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kioptrix Level 3&body=Check out this article: http://hunterluker.github.io/2021/02/27/kioptrix-3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&name=Kioptrix Level 3&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://hunterluker.github.io/2021/02/27/kioptrix-3/&t=Kioptrix Level 3"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">sqlmap</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Kioptrix Level 3
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Hunter Luker</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-27T17:20:06.000Z" itemprop="datePublished">2021-02-27</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/ejpt/" rel="tag">ejpt</a>, <a class="tag-link-link" href="/tags/kioptrix/" rel="tag">kioptrix</a>, <a class="tag-link-link" href="/tags/linux/" rel="tag">linux</a>, <a class="tag-link-link" href="/tags/oscp/" rel="tag">oscp</a>, <a class="tag-link-link" href="/tags/writeup/" rel="tag">writeup</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Kioptrix-Level-3-Writeup"><a href="#Kioptrix-Level-3-Writeup" class="headerlink" title="Kioptrix Level 3 Writeup"></a>Kioptrix Level 3 Writeup</h1><p>Number three in the Kioptrix series. You can find the VM here <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/kioptrix-level-12-3,24/">Kioptrix Level 3</a></p>
+<h2 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h2><h3 id="netdiscover"><a href="#netdiscover" class="headerlink" title="netdiscover"></a>netdiscover</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdiscover -i eth1</span><br></pre></td></tr></table></figure>
+<img src="/2021/02/27/kioptrix-3/netdiscover.png" class="" title="netdiscover-scan">
+
+<p>Running netdiscover on the <i>eth1</i> network interface we see the target running on 192.168.56.6.</p>
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><h3 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A -p- -oN nmap&#x2F;init 192.168.56.6</span><br></pre></td></tr></table></figure>
+<img src="/2021/02/27/kioptrix-3/nmap.png" class="" title="nmap-scan">
+
+<p>The nmap scan reveals port 80 open running an Apache web server and port 22 running an OpenSSH service. I start a dirb scan on the webserver and visit the site in the browser.</p>
+<img src="/2021/02/27/kioptrix-3/website-home.png" class="" title="website-home-page">
+
+<p>Opening the webapge in firefox reveals Ligoat Security. Searching around the blog and login I find nothing too revealing.</p>
+<h3 id="dirb"><a href="#dirb" class="headerlink" title="dirb"></a>dirb</h3><img src="/2021/02/27/kioptrix-3/dirb.png" class="" title="dirb">
+
+<p>Dirb reveals a few directories, but /gallery and /phpmyadmin seem to be the most interesting.</p>
+<img src="/2021/02/27/kioptrix-3/gallery.png" class="" title="gallery">
+
+<p>Vising /gallery it seems the page is broken, so I open the page source.</p>
+<img src="/2021/02/27/kioptrix-3/page-source.png" class="" title="page-source">
+
+<p>The page source reveals a “kioptrix3<span>.</span>com” url that seems to be a potential virtual host.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
+<img src="/2021/02/27/kioptrix-3/etc-hosts.png" class="" title="etc-hosts">
+
+<p>Opening /etc/hosts and adding the virutal host “kioptrix3<span>.</span>com”, I go back to the browser to switch the ip for the virutal host and refresh to find the page is now fixed.</p>
+<img src="/2021/02/27/kioptrix-3/virtual-host.png" class="" title="virtual-host">
+
+<p>Searching around the page I find a url query that could be vulnerable.</p>
+<img src="/2021/02/27/kioptrix-3/sqli-param.png" class="" title="sqli-param">
+
+<p>After adding a quotation to the end of the id param, we do see the site respond with an sql error verifying it is indeed vulnerable to injection.</p>
+<img src="/2021/02/27/kioptrix-3/sqli-test.png" class="" title="sqli-test">
+
+<p>Starting up sqlmap to automate the process I find the database gallery and a table inside it called dev_accounts.</p>
+<h3 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># First run to check parameter id</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -p id</span><br><span class="line"></span><br><span class="line"># Second run to list all databases</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 --dbs</span><br><span class="line"></span><br><span class="line"># Third run to list tables in database gallery</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -D gallery --tables</span><br><span class="line"></span><br><span class="line"># Fourth run to dump all data in dev_accounts table</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -D gallery -T dev_accounts --dump</span><br></pre></td></tr></table></figure>
+<img src="/2021/02/27/kioptrix-3/sqlmap.png" class="" title="sqlmap">
+
+<p>SQLMap not only dumps the usernames and password hashes but it also cracks them for us. </p>
+<p>Revealing two users creds:</p>
+<ul>
+<li>dreg:Mast3r</li>
+<li>loneferret:starwars</li>
+</ul>
+<img src="/2021/02/27/kioptrix-3/ssh.png" class="" title="ssh">
+
+<p>I ssh into both users, but loneferret seems to have more revealing files.</p>
+<img src="/2021/02/27/kioptrix-3/policy.png" class="" title="policy">
+
+<p>Catting the CompanyPolicy.README I see a command “sudo ht” that is used by the company to edit and create files.</p>
+<img src="/2021/02/27/kioptrix-3/export-term.png" class="" title="export-term">
+
+<p>To fix the terminal I just export the environment variable TERM to be xterm. Now I’m able to run the “sudo ht” command and open the interface.</p>
+<img src="/2021/02/27/kioptrix-3/sudo-ht.png" class="" title="sudo-ht">
+
+<p>The application is navigated by using the Function keys with the correct corresponding number. I open the file search feature by hitting F3.</p>
+<img src="/2021/02/27/kioptrix-3/search-sudoers.png" class="" title="search-sudoers">
+
+<p>Searching for the /etc/sudoers file and hitting enter I’m presented with the sudoers file.</p>
+<img src="/2021/02/27/kioptrix-3/sudoers.png" class="" title="sudoers">
+
+<p>I see my current user loneferret has sudo privileges to run /bin/bash.</p>
+<img src="/2021/02/27/kioptrix-3/root.png" class="" title="root">
+
+<p>Exiting the “sudo ht” application I run “sudo /bin/bash” and I’m now root. I finish by changing directories to /root and catting the Congrats.txt file to complete the box.</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/hunterluker">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">sqlmap</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://hunterluker.github.io/2021/02/27/kioptrix-3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&text=Kioptrix Level 3"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&is_video=false&description=Kioptrix Level 3"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kioptrix Level 3&body=Check out this article: http://hunterluker.github.io/2021/02/27/kioptrix-3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&title=Kioptrix Level 3"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://hunterluker.github.io/2021/02/27/kioptrix-3/&name=Kioptrix Level 3&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://hunterluker.github.io/2021/02/27/kioptrix-3/&t=Kioptrix Level 3"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Hunter Luker
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/hunterluker">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'cactus-1';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
